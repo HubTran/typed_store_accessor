@@ -1,8 +1,8 @@
 # TypedStoreAccessor
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/typed_store_accessor`. To experiment with that code, run `bin/console` for an interactive prompt.
+TypedStoreAccessor makes typed accessors with defaults for hash-like db columns easier.
 
-TODO: Delete this and the text above, and describe your gem
+HT to [John Richardson](https://github.com/barooo) for doing most of the actual work.
 
 ## Installation
 
@@ -22,7 +22,25 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+```
+Class MyObject
+  include TypedStoreAccessor
+
+  typed_store_accessor :settings, :boolean, :test_thing
+  typed_store_accessor :settings, :boolean, :test_thing_default, true
+  typed_store_accessor :settings, :non_blank_string, :string_thing
+  typed_store_accessor :settings,
+                       :restricted_string,
+                       :restricted_string_thing,
+                       "default",
+                       values: ["defined_value", "default"]
+  typed_store_accessor :settings, :array, :array_thing
+  typed_store_accessor :settings, :float, :float_thing
+  typed_store_accessor :settings, :big_decimal, :big_decimal_thing
+  typed_store_accessor :settings, :hash, :hash_thing
+  typed_store_accessor :settings, :hash, :hash_with_default, {}
+end
+```
 
 ## Development
 
@@ -32,10 +50,8 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/Randy Schmidt/typed_store_accessor.
-
+Bug reports and pull requests are welcome on GitHub at https://github.com/HubTran/typed_store_accessor.git
 
 ## License
 
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
-

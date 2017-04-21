@@ -273,6 +273,7 @@ describe TypedStoreAccessor do
     it "allows the generated methods to be overridden" do
       class MyOtherTestClass
         include TypedStoreAccessor
+
         def read_attribute(attr)
           self.send(attr)
         end
@@ -280,7 +281,6 @@ describe TypedStoreAccessor do
         def write_attribute(attr, value)
           self.send("#{attr}=", value)
         end
-
 
         typed_store_accessor :settings, :boolean, :override_me
 
