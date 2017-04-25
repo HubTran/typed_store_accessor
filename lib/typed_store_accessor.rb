@@ -5,7 +5,7 @@ require "typed_store_accessor/time_helpers"
 
 module TypedStoreAccessor
   extend ActiveSupport::Concern
-  extend TimeHelpers
+  include TimeHelpers
 
   class_methods do
     def _typed_store_accessor_module

@@ -1,4 +1,5 @@
 require "spec_helper"
+require "byebug"
 
 describe TypedStoreAccessor do
   class MyTestClass
@@ -25,6 +26,7 @@ describe TypedStoreAccessor do
     typed_store_accessor :settings, :array, :array_thing
     typed_store_accessor :settings, :float, :float_thing
     typed_store_accessor :settings, :big_decimal, :big_decimal_thing
+    typed_store_accessor :settings, :time, :time_thing
     typed_store_accessor :settings, :hash, :hash_thing
     typed_store_accessor :settings, :hash, :hash_with_default, {}
 
@@ -34,9 +36,14 @@ describe TypedStoreAccessor do
   end
 
   describe ".typed_store_accessor" do
+    before do
+      Time.zone = "UTC"
+    end
+
     subject { MyTestClass.new }
 
     it "generates a getter" do
+      debugger
       expect(subject.test_thing).to be_nil
     end
 
@@ -256,6 +263,24 @@ describe TypedStoreAccessor do
       it "converts integer to big_decimal" do
         subject.big_decimal_thing = 1
         expect(subject.big_decimal_thing).to eq 1.0
+      end
+    end
+
+    describe "time type" do
+      it "defaults to nil" do
+        expect(subject.time_thing).to be_nil
+      end
+
+      it "saves a time" do
+        now = Time.zone.now
+        subject.time_thing = now
+        expect(subject.time_thing).to eq now
+      end
+
+      it "saves a time string" do
+        now = Time.zone.now.to_s
+        subject.time_thing = now
+        expect(subject.time_thing).to eq now
       end
     end
 
