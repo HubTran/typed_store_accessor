@@ -2,7 +2,7 @@ module TypedStoreAccessor
   module TimeHelpers
     private
 
-    def parse_time(string)
+    def self.parse_time(string)
       if string == "NA" || string.blank?
         nil
       elsif (string =~ /\d{1,2}\/\d{1,2}\/\d{2}$/)

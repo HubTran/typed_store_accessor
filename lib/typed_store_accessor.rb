@@ -5,7 +5,6 @@ require "typed_store_accessor/time_helpers"
 
 module TypedStoreAccessor
   extend ActiveSupport::Concern
-  include TimeHelpers
 
   class_methods do
     def _typed_store_accessor_module
@@ -16,6 +15,7 @@ module TypedStoreAccessor
           mod
         end
     end
+
     def typed_store_accessor(store, prop_type, prop, default=nil, opts={})
       default = [] if default.nil? && prop_type == :array
       _typed_store_accessor_module.module_eval do
@@ -43,7 +43,7 @@ module TypedStoreAccessor
             if value.is_a?(Time)
               value
             else
-              value.blank? ? nil : parse_time(value)
+              value.blank? ? nil : TimeHelpers.parse_time(value)
             end
           else
             value
@@ -77,7 +77,7 @@ module TypedStoreAccessor
               if value.is_a?(Time)
                 value
               else
-                value.blank? ? nil : parse_time(value)
+                value.blank? ? nil : TimeHelpers.parse_time(value)
               end
             when :array
               value = value.nil? ? default : value

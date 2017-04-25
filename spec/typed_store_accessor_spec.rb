@@ -43,7 +43,6 @@ describe TypedStoreAccessor do
     subject { MyTestClass.new }
 
     it "generates a getter" do
-      debugger
       expect(subject.test_thing).to be_nil
     end
 
