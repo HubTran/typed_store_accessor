@@ -55,7 +55,7 @@ module TypedStoreAccessor
           value_for_storage =
             case prop_type
             when :boolean
-              ActiveRecord::Type::Boolean.new.type_cast_from_database(value)
+              ActiveRecord::Type::Boolean.new.deserialize(value)
             when :non_blank_string
               value == '' ? nil : value
             when :restricted_string
