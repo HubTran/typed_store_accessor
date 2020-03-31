@@ -24,6 +24,7 @@ describe TypedStoreAccessor do
                          "default",
                          values: ["defined_value", "default"]
     typed_store_accessor :settings, :array, :array_thing
+    typed_store_accessor :settings, :array, :array_with_default, []
     typed_store_accessor :settings, :float, :float_thing
     typed_store_accessor :settings, :big_decimal, :big_decimal_thing
     typed_store_accessor :settings, :time, :time_thing
@@ -230,6 +231,11 @@ describe TypedStoreAccessor do
         expect {
           subject.array_thing = "asdf"
         }.to raise_error(RuntimeError)
+      end
+
+      it "dupes the default to not share an object" do
+        subject.array_with_default << 1
+        expect(MyTestClass.new.array_with_default).to eq([])
       end
     end
 
