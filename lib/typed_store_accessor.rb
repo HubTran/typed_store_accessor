@@ -27,6 +27,8 @@ module TypedStoreAccessor
               value = case default
                       when Hash
                         default.dup
+                      when Array
+                        default.dup
                       else
                         default
                       end
