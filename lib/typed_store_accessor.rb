@@ -38,7 +38,7 @@ module TypedStoreAccessor
           end
           case prop_type
           when :big_decimal
-            value = BigDecimal.new(value)
+            value = BigDecimal(value)
           when :string
             value.to_s
           when :time
