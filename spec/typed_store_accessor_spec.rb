@@ -43,6 +43,13 @@ describe TypedStoreAccessor do
 
     subject { MyTestClass.new }
 
+    describe 'typed_store_accessors' do
+      it 'provides info on the accessors' do
+        expect(MyTestClass.typed_store_accessors).not_to be_empty
+        expect(MyTestClass.typed_store_accessors.all?(Hash)).to be(true)
+      end
+    end
+
     it "generates a getter" do
       expect(subject.test_thing).to be_nil
     end

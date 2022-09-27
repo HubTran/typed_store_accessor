@@ -16,7 +16,18 @@ module TypedStoreAccessor
         end
     end
 
+    attr_reader :typed_store_accessors
+
     def typed_store_accessor(store, prop_type, prop, default=nil, opts={})
+      @typed_store_accessors ||= []
+      @typed_store_accessors << {
+        store: store,
+        prop_type: prop_type,
+        prop: prop,
+        default: default,
+        opts: opts
+      }
+
       default = [] if default.nil? && prop_type == :array
       _typed_store_accessor_module.module_eval do
         define_method(prop) do
